@@ -15,9 +15,9 @@ const reminderKeys = {
   })
 };
 
-const ReminderCreation = require('./notify/reminderCreation'); /* Создать новое Напоминание */
-const ReminderList = require('./notify/reminderList'); /* Список Напоминаний */
-const ReminderDeletion = require('./notify/reminderDeletion');  /* Удаление напоминаний */
+const ReminderCreation = require('./reminderCreation'); /* Создать новое Напоминание */
+const ReminderList = require('./reminderList'); /* Список Напоминаний */
+const ReminderDeletion = require('./reminderDeletion');  /* Удаление напоминаний */
 let creationSessions = {};
 let deletionSessions = {};
 
