@@ -143,13 +143,14 @@ const checkAndSendReminder = (reminder) => {
       reminders = reminders.filter((item) => item !== reminder);
       fs.writeFileSync('reminders.json', JSON.stringify(reminders));
     } else {
+      let timeDifference = Math.floor((reminderDate.getTime() - now.getTime()) / 1000 / 60);
       // checking for notifications 24 hours, 1 hour, and 10 minutes before the reminder
-      if (reminder.notify24h && (now.getTime() - reminderDate.getTime()) === 24*60*60*1000) {
-        bot.sendMessage(reminder.chatId, `🛎️ Напоминание: '${reminder.text}' будет через 24 часа.`);
-      } else if (reminder.notify1h && (now.getTime() - reminderDate.getTime()) === 60*60*1000) {
-        bot.sendMessage(reminder.chatId, `🛎️ Напоминание: '${reminder.text}' будет через 1 час.`);
-      } else if (reminder.notify10m && (now.getTime() - reminderDate.getTime()) === 10*60*1000) {
-        bot.sendMessage(reminder.chatId, `🛎️ Напоминание: '${reminder.text}' будет через 10 минут.`);
+      if (reminder.notify24h && timeDifference >= 1440 && timeDifference < 1441) {
+        bot.sendMessage(reminder.chatId, `🛎️ Напоминание: <b>'${reminder.text}'</b> будет через 24 часа.`, {parse_mode:"HTML"});
+      } else if (reminder.notify1h && timeDifference >= 60 && timeDifference < 61) {
+        bot.sendMessage(reminder.chatId, `🛎️ Напоминание: <b>'${reminder.text}'</b> будет через 1 час.`, {parse_mode:"HTML"});
+      } else if (reminder.notify10m && timeDifference >= 10 && timeDifference < 11) {
+        bot.sendMessage(reminder.chatId, `🛎️ Напоминание: <b>'${reminder.text}'</b> будет через 10 минут.`, {parse_mode:"HTML"});
       }
     }
   }
